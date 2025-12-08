@@ -54,21 +54,21 @@ CREATE TABLE airport (
 
 CREATE TABLE airplane (
 	registration_code CHAR(6) PRIMARY KEY,
-		-- CHECK
+		CHECK (registration_code LIKE 'SP-L[A-Z][A-Z]'),
 	airplane_model_id INT NOT NULL
 		REFERENCES airplane_model(product_id),
 	location_airport_iata_code CHAR(3) NOT NULL
 		REFERENCES airport(iata_code),
-	acquisition_date DATE NOT NULL,
-		-- CHECK
-	status VARCHAR(12) NOT NULL,
-		-- CHECK
+	acquisition_date DATE NOT NULL
+		CHECK (acquisition_date >= '1970-01-01' AND acquisition_date <= GETDATE()),
+	status VARCHAR(12) NOT NULL
+		CHECK (status IN ('active', 'inspection', 'maintenance', 'suspended', 'retired'))
 );
 
 CREATE TABLE workshop (
 	airport_iata_code CHAR(3) NOT NULL
 		REFERENCES airport(iata_code),
-	number INT NOT NULL,
+	number INT NOT NULL
 		CHECK (number > 0),
 	is_occupied BIT NOT NULL,
 
@@ -83,7 +83,7 @@ CREATE TABLE employee (
 		-- CHECK
 	email VARCHAR(40) UNIQUE NOT NULL,
 		-- CHECK
-	role VARCHAR(24) NOT NULL,
+	role VARCHAR(24) NOT NULL
 		-- CHECK
 );
 
