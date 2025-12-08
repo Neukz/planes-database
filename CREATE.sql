@@ -42,13 +42,14 @@ CREATE TABLE spare_part (
 );
 
 CREATE TABLE airport (
-	iata_code CHAR(3) PRIMARY KEY,
-	name VARCHAR(60) NOT NULL,
-		-- CHECK
-	country VARCHAR(50) NOT NULL,
-		-- CHECK
-	city VARCHAR(60) NOT NULL,
-		-- CHECK
+	iata_code CHAR(3) PRIMARY KEY
+		CHECK (iata_code LIKE '[A-Z][A-Z][A-Z]'),
+	name VARCHAR(60) NOT NULL
+		CHECK (name LIKE '[A-Z][A-Za-z ]*'),
+	country VARCHAR(50) NOT NULL
+		CHECK (country LIKE '[A-Z][A-Za-z ]*'),
+	city VARCHAR(60) NOT NULL
+		CHECK (city LIKE '[A-Z][A-Za-z ]*')
 );
 
 CREATE TABLE airplane (
