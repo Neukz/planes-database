@@ -82,7 +82,7 @@ CREATE TABLE employee (
 	last_name VARCHAR(30) NOT NULL
 		CHECK (last_name LIKE '[A-Z][a-z]*'),
 	email VARCHAR(40) UNIQUE NOT NULL
-		CHECK (email LIKE '[a-z]\.[a-z]*[0-9]?@lot\.pl'),
+		CHECK (email LIKE '[a-z][0-9]?\.[a-z]*@lot\.pl'),
 	role VARCHAR(24) NOT NULL
 		CHECK (role IN ('Inspection Specialist', 'Maintenance Coordinator'))
 );
