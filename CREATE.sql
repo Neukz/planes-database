@@ -1,26 +1,23 @@
--- producer
 CREATE TABLE producer (
 	id INT IDENTITY PRIMARY KEY,
-	name VARCHAR(30) NOT NULL,
-		-- CHECK
-	partnership_start_date DATE NOT NULL,
-		-- CHECK
+	name VARCHAR(30) NOT NULL
+		CHECK (name LIKE '[A-Z]%'),
+	partnership_start_date DATE NOT NULL
+		CHECK (partnership_start_date >= '1970-01-01' AND partnership_start_date <= DATEADD(YEAR, 1, GETDATE())),
 	partnership_end_date DATE
-		-- CHECK
+		CHECK (partnership_end_date >= DATEADD(YEAR, 1, GETDATE()))
 );
 
--- product
 CREATE TABLE product (
 	id INT IDENTITY PRIMARY KEY,
 	producer_id INT NOT NULL
 		REFERENCES producer(id),
-	name VARCHAR(30) NOT NULL,
-		-- CHECK
+	name VARCHAR(30) NOT NULL
+		CHECK (name LIKE '[A-Z]%'),
 	value INT NOT NULL
 		CHECK (value > 0 AND value % 100 = 0)
 );
 
--- airplane_model
 CREATE TABLE airplane_model (
 	product_id INT PRIMARY KEY
 		REFERENCES product(id),
@@ -34,7 +31,6 @@ CREATE TABLE airplane_model (
 		CHECK (fuel_capacity > 0 AND fuel_capacity % 10 = 0)
 );
 
--- spare_part
 CREATE TABLE spare_part (
 	product_id INT PRIMARY KEY
 		REFERENCES product(id),
@@ -45,7 +41,6 @@ CREATE TABLE spare_part (
 		CHECK (warranty_period > 0)
 );
 
--- airport
 CREATE TABLE airport (
 	iata_code CHAR(3) PRIMARY KEY,
 	name VARCHAR(60) NOT NULL,
@@ -56,7 +51,6 @@ CREATE TABLE airport (
 		-- CHECK
 );
 
--- airplane
 CREATE TABLE airplane (
 	registration_code CHAR(6) PRIMARY KEY,
 		-- CHECK
@@ -70,7 +64,6 @@ CREATE TABLE airplane (
 		-- CHECK
 );
 
--- workshop
 CREATE TABLE workshop (
 	airport_iata_code CHAR(3) NOT NULL
 		REFERENCES airport(iata_code),
@@ -81,7 +74,6 @@ CREATE TABLE workshop (
 	PRIMARY KEY (airport_iata_code, number)
 );
 
--- employee
 CREATE TABLE employee (
 	id INT IDENTITY PRIMARY KEY,
 	first_name VARCHAR(30) NOT NULL,
@@ -94,7 +86,6 @@ CREATE TABLE employee (
 		-- CHECK
 );
 
--- inspection
 CREATE TABLE inspection (
 	id INT IDENTITY PRIMARY KEY,
 	airplane_registration_code CHAR(6) NOT NULL
@@ -110,7 +101,6 @@ CREATE TABLE inspection (
 		-- CHECK
 );
 
--- maintenance
 CREATE TABLE maintenance (
 	id INT IDENTITY PRIMARY KEY,
 	initiating_inspection_id INT NOT NULL
@@ -134,7 +124,6 @@ ALTER TABLE inspection
 	ADD CONSTRAINT fk_inspection_maintenance
 		FOREIGN KEY (validated_maintenance_id) REFERENCES maintenance(id);
 
--- inventory_stock
 CREATE TABLE inventory_stock (
 	id INT IDENTITY PRIMARY KEY,
 	spare_part_id INT NOT NULL
@@ -151,7 +140,6 @@ CREATE TABLE inventory_stock (
 		REFERENCES workshop(airport_iata_code, number)
 );
 
--- maintenance_inventory_usage
 CREATE TABLE maintenance_inventory_usage (
 	maintenance_id INT NOT NULL
 		REFERENCES maintenance(id),
