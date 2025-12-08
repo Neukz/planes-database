@@ -110,10 +110,10 @@ CREATE TABLE maintenance (
 		REFERENCES employee(id),
 	workshop_airport_iata_code CHAR(3) NOT NULL,
 	workshop_number INT NOT NULL,
-	start_date DATE,
-		-- CHECK
-	end_date DATE,
-		-- CHECK
+	start_date DATE
+		CHECK (start_date >= '1970-01-01' AND start_date <= DATEADD(YEAR, 1, GETDATE())),
+	end_date DATE
+		CHECK (end_date >= '1970-01-01' AND end_date <= DATEADD(YEAR, 1, GETDATE())),
 
 	CONSTRAINT fk_maintenance_workshop
 		FOREIGN KEY (workshop_airport_iata_code, workshop_number)
