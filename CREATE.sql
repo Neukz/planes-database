@@ -77,14 +77,14 @@ CREATE TABLE workshop (
 
 CREATE TABLE employee (
 	id INT IDENTITY PRIMARY KEY,
-	first_name VARCHAR(30) NOT NULL,
-		-- CHECK
-	last_name VARCHAR(30) NOT NULL,
-		-- CHECK
-	email VARCHAR(40) UNIQUE NOT NULL,
-		-- CHECK
+	first_name VARCHAR(30) NOT NULL
+		CHECK (first_name LIKE '[A-Z][a-z]*'),
+	last_name VARCHAR(30) NOT NULL
+		CHECK (last_name LIKE '[A-Z][a-z]*'),
+	email VARCHAR(40) UNIQUE NOT NULL
+		CHECK (email LIKE '[a-z]\.[a-z]*[0-9]?@lot\.pl'),
 	role VARCHAR(24) NOT NULL
-		-- CHECK
+		CHECK (role IN ('Inspection Specialist', 'Maintenance Coordinator'))
 );
 
 CREATE TABLE inspection (
