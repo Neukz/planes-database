@@ -34,8 +34,8 @@ CREATE TABLE airplane_model (
 CREATE TABLE spare_part (
 	product_id INT PRIMARY KEY
 		REFERENCES product(id),
-	type VARCHAR(10) NOT NULL,
-		-- CHECK
+	type VARCHAR(10) NOT NULL
+		CHECK (type IN ('electrical', 'mechanical', 'hydraulic', 'avionics', 'structural', 'cabin', 'safety')),
 	description VARCHAR(500) NOT NULL,
 	warranty_period INT NOT NULL
 		CHECK (warranty_period > 0)
