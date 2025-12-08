@@ -94,12 +94,12 @@ CREATE TABLE inspection (
 	performed_by_employee_id INT NOT NULL
 		REFERENCES employee(id),
 	validated_maintenance_id INT,
-	type VARCHAR(16) NOT NULL,
-		-- CHECK
-	date DATE NOT NULL,
-		-- CHECK
+	type VARCHAR(16) NOT NULL
+		CHECK (type IN ('pre-flight', 'post-flight', 'routine', 'post-maintenance')),
+	date DATE NOT NULL
+		CHECK (date >= '1970-01-01' AND date <= DATEADD(YEAR, 1, GETDATE())),
 	result VARCHAR(10) NOT NULL
-		-- CHECK
+		CHECK (result IN ('scheduled', 'pending', 'passed', 'failed'))
 );
 
 CREATE TABLE maintenance (
