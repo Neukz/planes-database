@@ -103,3 +103,27 @@ VALUES
     ('Marek', 'Grabowski', 'm.grabowski@lot.pl', 'Maintenance Coordinator'),
     ('Maciej', 'Komorowski', 'm.komorowski@lot.pl', 'Inspection Specialist'),
     ('John', 'Doe', 'j.doe@lot.pl', 'Maintenance Coordinator');
+
+INSERT INTO workshop
+VALUES
+    ('GDN', 1, 1),
+    ('GDN', 2, 0),
+    ('WAW', 1, 1),
+    ('WAW', 2, 0),
+    ('BZG', 1, 0),
+    ('BZG', 2, 0),
+    ('KRK', 1, 0),
+    ('KRK', 2, 0),
+    ('LHR', 1, 1),
+    ('LHR', 2, 0),
+    ('DUB', 1, 0),
+    ('DUB', 2, 0),
+    ('CDG', 1, 0),
+    ('CDG', 2, 0),
+    ('ORY', 1, 0),
+    ('ORY', 2, 0),
+    ('AMS', 1, 0),
+    ('AMS', 2, 0),
+    ('BER', 1, 0),
+    ('BER', 2, 0);
+
