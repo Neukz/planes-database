@@ -57,6 +57,7 @@ VALUES
     (4, 'Emergency Slide Pack', 18500),           -- $18.5K
     (10, 'Fire Detection System', 42000);         -- $42K
 
+
 INSERT INTO airplane_model
 VALUES
     (1, 180, 6500, 840, 26500),    -- A320neo
@@ -69,6 +70,7 @@ VALUES
     (8, 90, 3500, 870, 19800),     -- CRJ900
     (9, 120, 5200, 830, 21000),    -- E195-E2
     (10, 70, 1600, 510, 5900);     -- 72-600
+
 
 INSERT INTO spare_part
 VALUES
@@ -87,3 +89,17 @@ VALUES
     (23, 'avionics', 'Triple redundant flight control computer', 48),
     (24, 'safety', 'Passenger oxygen mask drop system', 12),
     (25, 'safety', 'Type III emergency evacuation slide with inflation system', 18);
+
+
+INSERT INTO employee
+VALUES
+    ('Jan', 'Kowalski', 'j.kowalski@lot.pl', 'Inspection Specialist'),
+    ('Robert', 'Lewandowski', 'r.lewandowski@lot.pl', 'Maintenance Coordinator'),
+    ('Adam', 'Nowak', 'a.nowak@lot.pl', 'Inspection Specialist'),
+    ('Joachim', 'Wozniak', 'j.wozniak@lot.pl', 'Maintenance Coordinator'),
+    ('John', 'Smith', 'j.smith@lot.pl', 'Inspection Specialist'),
+    ('Krzysztof', 'Malinowski', 'k.malinowski@lot.pl', 'Maintenance Coordinator'),
+    ('Edward', 'Dzban', 'e.dzban@lot.pl', 'Inspection Specialist'),
+    ('Marek', 'Grabowski', 'm.grabowski@lot.pl', 'Maintenance Coordinator'),
+    ('Maciej', 'Komorowski', 'm.komorowski@lot.pl', 'Inspection Specialist'),
+    ('John', 'Doe', 'j.doe@lot.pl', 'Maintenance Coordinator');
