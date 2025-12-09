@@ -45,11 +45,11 @@ CREATE TABLE airport (
 	iata_code CHAR(3) PRIMARY KEY
 		CHECK (iata_code LIKE '[A-Z][A-Z][A-Z]'),
 	name VARCHAR(60) NOT NULL
-		CHECK (name LIKE '[A-Z][A-Za-z ]*'),
+		CHECK (name LIKE '[A-Z][A-Za-z ]%'),	-- TODO
 	country VARCHAR(50) NOT NULL
-		CHECK (country LIKE '[A-Z][A-Za-z ]*'),
+		CHECK (country LIKE '[A-Z][A-Za-z ]%'),	-- TODO
 	city VARCHAR(60) NOT NULL
-		CHECK (city LIKE '[A-Z][A-Za-z ]*')
+		CHECK (city LIKE '[A-Z][A-Za-z ]%')		-- TODO
 );
 
 CREATE TABLE airplane (
@@ -78,11 +78,11 @@ CREATE TABLE workshop (
 CREATE TABLE employee (
 	id INT IDENTITY PRIMARY KEY,
 	first_name VARCHAR(30) NOT NULL
-		CHECK (first_name LIKE '[A-Z][a-z]*'),
+		CHECK (first_name LIKE '[A-Z][a-z]%'),		-- TODO
 	last_name VARCHAR(30) NOT NULL
-		CHECK (last_name LIKE '[A-Z][a-z]*'),
+		CHECK (last_name LIKE '[A-Z][a-z]%'),		-- TODO
 	email VARCHAR(40) UNIQUE NOT NULL
-		CHECK (email LIKE '[a-z][0-9]?\.[a-z]*@lot\.pl'),
+		CHECK (email LIKE '[a-z].[a-z]%@lot.pl'),	-- TODO
 	role VARCHAR(24) NOT NULL
 		CHECK (role IN ('Inspection Specialist', 'Maintenance Coordinator'))
 );
