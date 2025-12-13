@@ -221,75 +221,114 @@ VALUES
     (28, 'BER', 2, 7, 4);
 
 
-INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, validated_maintenance_id, type, date, result)
+INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, type, date, result)
 VALUES
     -- Passed, non-post-maintenance (id: 1-5)
-    ('SP-LAA', 1, NULL, 'pre-flight',  '2025-10-01', 'passed'),
-    ('SP-LAD', 3, NULL, 'post-flight', '2025-10-02', 'passed'),
-    ('SP-LAE', 5, NULL, 'routine',     '2025-10-03', 'passed'),
-    ('SP-LBB', 1, NULL, 'pre-flight',  '2025-10-04', 'passed'),
-    ('SP-LBC', 3, NULL, 'post-flight', '2025-10-05', 'passed'),
+    ('SP-LAA', 1, 'pre-flight',  '2025-10-01', 'passed'),
+    ('SP-LAD', 3, 'post-flight', '2025-10-02', 'passed'),
+    ('SP-LAE', 5, 'routine',     '2025-10-03', 'passed'),
+    ('SP-LBB', 1, 'pre-flight',  '2025-10-04', 'passed'),
+    ('SP-LBC', 3, 'post-flight', '2025-10-05', 'passed'),
 
     -- Failed, non-post-maintenance - lead to maintenance (id: 6–25)
-    ('SP-LAA', 1, NULL, 'pre-flight',  '2025-10-06', 'failed'),
-    ('SP-LAD', 3, NULL, 'post-flight', '2025-10-07', 'failed'),
-    ('SP-LAE', 5, NULL, 'routine',     '2025-10-08', 'failed'),
-    ('SP-LBB', 1, NULL, 'pre-flight',  '2025-10-09', 'failed'),
-    ('SP-LBC', 3, NULL, 'post-flight', '2025-10-10', 'failed'),
-    ('SP-LCA', 5, NULL, 'routine',     '2025-10-11', 'failed'),
-    ('SP-LDB', 1, NULL, 'pre-flight',  '2025-10-12', 'failed'),
-    ('SP-LEA', 3, NULL, 'post-flight', '2025-10-13', 'failed'),
-    ('SP-LFA', 5, NULL, 'routine',     '2025-10-14', 'failed'),
-    ('SP-LGA', 1, NULL, 'pre-flight',  '2025-10-15', 'failed'),
-    ('SP-LHA', 3, NULL, 'post-flight', '2025-10-16', 'failed'),
-    ('SP-LIA', 5, NULL, 'routine',     '2025-10-17', 'failed'),
-    ('SP-LJA', 1, NULL, 'pre-flight',  '2025-10-18', 'failed'),
-    ('SP-LAA', 3, NULL, 'post-flight', '2025-10-19', 'failed'),
-    ('SP-LAD', 5, NULL, 'routine',     '2025-10-20', 'failed'),
-    ('SP-LAE', 1, NULL, 'pre-flight',  '2025-10-21', 'failed'),
-    ('SP-LBB', 3, NULL, 'post-flight', '2025-10-22', 'failed'),
-    ('SP-LBC', 5, NULL, 'routine',     '2025-10-23', 'failed'),
-    ('SP-LCA', 1, NULL, 'pre-flight',  '2025-10-24', 'failed'),
-    ('SP-LDB', 3, NULL, 'post-flight', '2025-10-25', 'failed'),
+    ('SP-LAA', 1, 'pre-flight',  '2025-10-06', 'failed'),
+    ('SP-LAD', 3, 'post-flight', '2025-10-07', 'failed'),
+    ('SP-LAE', 5, 'routine',     '2025-10-08', 'failed'),
+    ('SP-LBB', 1, 'pre-flight',  '2025-10-09', 'failed'),
+    ('SP-LBC', 3, 'post-flight', '2025-10-10', 'failed'),
+    ('SP-LCA', 5, 'routine',     '2025-10-11', 'failed'),
+    ('SP-LDB', 1, 'pre-flight',  '2025-10-12', 'failed'),
+    ('SP-LEA', 3, 'post-flight', '2025-10-13', 'failed'),
+    ('SP-LFA', 5, 'routine',     '2025-10-14', 'failed'),
+    ('SP-LGA', 1, 'pre-flight',  '2025-10-15', 'failed'),
+    ('SP-LHA', 3, 'post-flight', '2025-10-16', 'failed'),
+    ('SP-LIA', 5, 'routine',     '2025-10-17', 'failed'),
+    ('SP-LJA', 1, 'pre-flight',  '2025-10-18', 'failed'),
+    ('SP-LAA', 3, 'post-flight', '2025-10-19', 'failed'),
+    ('SP-LAD', 5, 'routine',     '2025-10-20', 'failed'),
+    ('SP-LAE', 1, 'pre-flight',  '2025-10-21', 'failed'),
+    ('SP-LBB', 3, 'post-flight', '2025-10-22', 'failed'),
+    ('SP-LBC', 5, 'routine',     '2025-10-23', 'failed'),
+    ('SP-LCA', 1, 'pre-flight',  '2025-10-24', 'failed'),
+    ('SP-LDB', 3, 'post-flight', '2025-10-25', 'failed');
 
-    -- Passed, post-maintenance - confirm 15/20 maintenances (id: 26-40)
-    ('SP-LAA', 1, NULL, 'post-maintenance', '2025-11-01', 'passed'),
-    ('SP-LAD', 3, NULL, 'post-maintenance', '2025-11-02', 'passed'),
-    ('SP-LAE', 5, NULL, 'post-maintenance', '2025-11-03', 'passed'),
-    ('SP-LBB', 1, NULL, 'post-maintenance', '2025-11-04', 'passed'),
-    ('SP-LBC', 3, NULL, 'post-maintenance', '2025-11-05', 'passed'),
-    ('SP-LCA', 5, NULL, 'post-maintenance', '2025-11-06', 'passed'),
-    ('SP-LDB', 1, NULL, 'post-maintenance', '2025-11-07', 'passed'),
-    ('SP-LEA', 3, NULL, 'post-maintenance', '2025-11-08', 'passed'),
-    ('SP-LFA', 5, NULL, 'post-maintenance', '2025-11-09', 'passed'),
-    ('SP-LGA', 1, NULL, 'post-maintenance', '2025-11-10', 'passed'),
-    ('SP-LHA', 3, NULL, 'post-maintenance', '2025-11-11', 'passed'),
-    ('SP-LIA', 5, NULL, 'post-maintenance', '2025-11-12', 'passed'),
-    ('SP-LJA', 1, NULL, 'post-maintenance', '2025-11-13', 'passed'),
-    ('SP-LAA', 3, NULL, 'post-maintenance', '2025-11-14', 'passed'),
-    ('SP-LAD', 5, NULL, 'post-maintenance', '2025-11-15', 'passed'),
 
-    -- Failed, post-maintenance - fail 5/20 of the initial maintenances (id: 41–45)
-    ('SP-LAE', 1, NULL, 'post-maintenance', '2025-11-16', 'failed'),
-    ('SP-LBB', 3, NULL, 'post-maintenance', '2025-11-17', 'failed'),
-    ('SP-LBC', 5, NULL, 'post-maintenance', '2025-11-18', 'failed'),
-    ('SP-LCA', 1, NULL, 'post-maintenance', '2025-11-19', 'failed'),
-    ('SP-LDB', 3, NULL, 'post-maintenance', '2025-11-20', 'failed'),
+INSERT INTO maintenance (initiating_inspection_id, coordinated_by_employee_id, workshop_airport_iata_code, workshop_number, start_date, end_date)
+VALUES
+    -- Maintenances from failed non-post-maintenance inspections 6-25 (id: 1-20),
+    (6,  2, 'WAW', 1, '2025-10-06', '2025-11-01'),
+    (7,  4, 'CDG', 1, '2025-10-07', '2025-11-02'),
+    (8,  2, 'LHR', 1, '2025-10-08', '2025-11-03'),
+    (9,  4, 'DUB', 1, '2025-10-09', '2025-11-04'),
+    (10, 6, 'AMS', 1, '2025-10-10', '2025-11-05'),
+    (11, 8, 'KRK', 1, '2025-10-11', '2025-11-06'),
+    (12, 10, 'GDN', 1, '2025-10-12', '2025-11-07'),
+    (13, 2, 'LHR', 1, '2025-10-13', '2025-11-08'),
+    (14, 4, 'CDG', 1, '2025-10-14', '2025-11-09'),
+    (15, 6, 'BER', 1, '2025-10-15', '2025-11-10'),
+    (16, 8, 'AMS', 1, '2025-10-16', '2025-11-11'),
+    (17, 10, 'DUB', 1, '2025-10-17', '2025-11-12'),
+    (18, 2, 'ORY', 1, '2025-10-18', '2025-11-13'),
+    (19, 4, 'WAW', 1, '2025-10-19', '2025-11-14'),
+    (20, 6, 'CDG', 1, '2025-10-20', '2025-11-15'),
+    (21, 8, 'LHR', 1, '2025-10-21', '2025-11-16'),
+    (22, 10, 'DUB', 1, '2025-10-22', '2025-11-17'),
+    (23, 2, 'AMS', 1, '2025-10-23', '2025-11-18'),
+    (24, 4, 'KRK', 1, '2025-10-24', '2025-11-19'),
+    (25, 6, 'GDN', 1, '2025-10-25', '2025-11-20');
 
-    -- Passed, post-maintenance - confirm the 5 maintenances triggered above (id: 46–50)
-    ('SP-LAE', 1, NULL, 'post-maintenance', '2025-11-21', 'passed'),
-    ('SP-LBB', 3, NULL, 'post-maintenance', '2025-11-22', 'passed'),
-    ('SP-LBC', 5, NULL, 'post-maintenance', '2025-11-23', 'passed'),
-    ('SP-LCA', 1, NULL, 'post-maintenance', '2025-11-24', 'passed'),
-    ('SP-LDB', 3, NULL, 'post-maintenance', '2025-11-25', 'passed'),
+
+INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, validated_maintenance_id, type, date, result)
+VALUES
+    -- Passed, post-maintenance - confirm maintenances 1-15 (id: 26-40)
+    ('SP-LAA', 1, 1, 'post-maintenance', '2025-11-01', 'passed'),
+    ('SP-LAD', 3, 2, 'post-maintenance', '2025-11-02', 'passed'),
+    ('SP-LAE', 5, 3, 'post-maintenance', '2025-11-03', 'passed'),
+    ('SP-LBB', 1, 4, 'post-maintenance', '2025-11-04', 'passed'),
+    ('SP-LBC', 3, 5, 'post-maintenance', '2025-11-05', 'passed'),
+    ('SP-LCA', 5, 6, 'post-maintenance', '2025-11-06', 'passed'),
+    ('SP-LDB', 1, 7, 'post-maintenance', '2025-11-07', 'passed'),
+    ('SP-LEA', 3, 8, 'post-maintenance', '2025-11-08', 'passed'),
+    ('SP-LFA', 5, 9, 'post-maintenance', '2025-11-09', 'passed'),
+    ('SP-LGA', 1, 10, 'post-maintenance', '2025-11-10', 'passed'),
+    ('SP-LHA', 3, 11, 'post-maintenance', '2025-11-11', 'passed'),
+    ('SP-LIA', 5, 12, 'post-maintenance', '2025-11-12', 'passed'),
+    ('SP-LJA', 1, 13, 'post-maintenance', '2025-11-13', 'passed'),
+    ('SP-LAA', 3, 14, 'post-maintenance', '2025-11-14', 'passed'),
+    ('SP-LAD', 5, 15, 'post-maintenance', '2025-11-15', 'passed'),
+
+    -- Failed, post-maintenance - fail maintenances 16-20 (id: 41–45)
+    ('SP-LAE', 1, 16, 'post-maintenance', '2025-11-16', 'failed'),
+    ('SP-LBB', 3, 17, 'post-maintenance', '2025-11-17', 'failed'),
+    ('SP-LBC', 5, 18, 'post-maintenance', '2025-11-18', 'failed'),
+    ('SP-LCA', 1, 19, 'post-maintenance', '2025-11-19', 'failed'),
+    ('SP-LDB', 3, 20, 'post-maintenance', '2025-11-20', 'failed');
+
+
+INSERT INTO maintenance (initiating_inspection_id, coordinated_by_employee_id, workshop_airport_iata_code, workshop_number, start_date, end_date)
+VALUES
+    -- Maintenances from failed post-maintenance inspections 41-45 (id: 21-25)
+    (41, 2, 'LHR', 1, '2025-11-16', '2025-11-21'),
+    (42, 4, 'DUB', 1, '2025-11-17', '2025-11-22'),
+    (43, 6, 'AMS', 1, '2025-11-18', '2025-11-23'),
+    (44, 8, 'KRK', 1, '2025-11-19', '2025-11-24'),
+    (45, 10, 'GDN', 1, '2025-11-20', '2025-11-25');
+
+
+INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, validated_maintenance_id, type, date, result)
+VALUES
+    -- Passed, post-maintenance - confirm the maintenances 21-25 triggered above (id: 46–50)
+    ('SP-LAE', 1, 21, 'post-maintenance', '2025-11-21', 'passed'),
+    ('SP-LBB', 3, 22, 'post-maintenance', '2025-11-22', 'passed'),
+    ('SP-LBC', 5, 23, 'post-maintenance', '2025-11-23', 'passed'),
+    ('SP-LCA', 1, 24, 'post-maintenance', '2025-11-24', 'passed'),
+    ('SP-LDB', 3, 25, 'post-maintenance', '2025-11-25', 'passed'),
 
     -- Pending (id: 51–52)
     ('SP-LAC', 1, NULL, 'pre-flight',  '2025-12-13', 'pending'),
     ('SP-LCB', 3, NULL, 'post-flight', '2025-12-13', 'pending'),
 
-    -- Scheduled, non-post-maintenance (id: 53–55)
+    -- Scheduled (id: 53–55)
     ('SP-LGA', 1, NULL, 'pre-flight',  '2026-01-09', 'scheduled'),
     ('SP-LHA', 3, NULL, 'post-flight', '2026-01-20', 'scheduled'),
     ('SP-LIA', 5, NULL, 'routine',     '2025-01-27', 'scheduled');
-
-
