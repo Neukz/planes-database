@@ -28,7 +28,7 @@ VALUES
 
 INSERT INTO product (producer_id, name, value)
 VALUES
-    -- Airplane models
+    -- Airplane models (id 1-15)
     (1, 'Airbus A320neo', 112000000),      -- $112M
     (1, 'Airbus A321neo', 129000000),      -- $129M  
     (1, 'Airbus A350-900', 317000000),     -- $317M
@@ -45,7 +45,7 @@ VALUES
     (9, 'ATR 72-600', 29000000),           -- $29M
     (10, 'COMAC C919', 50000000),          -- $50M
     
-    -- Spare parts
+    -- Spare parts (id 16-30)
     (1, 'Landing Gear', 1250000),               -- $1.25M
     (2, 'Engine Fan Blade', 850000),            -- $850K
     (1, 'Avionics Flight Computer', 325000),    -- $325K
@@ -180,3 +180,41 @@ VALUES
 
     -- COMAC
     ('SP-LJA', 15, 'ORY', '2014-07-22', 'active');
+
+INSERT INTO inventory_stock (spare_part_id, workshop_airport_iata_code, workshop_number, quantity, reorder_level)
+VALUES
+    -- Airbus spare parts at GDN
+    (16, 'GDN', 1, 12, 5),  -- Landing Gear
+    (16, 'GDN', 2, 8, 5),
+    (18, 'GDN', 1, 25, 10), -- Avionics Flight Computer
+    (18, 'GDN', 2, 15, 10),
+    (21, 'GDN', 1, 3, 2),   -- Thrust Reverser
+    (21, 'GDN', 2, 2, 2),
+    (24, 'GDN', 1, 8, 4),   -- Weather Radar Antenna
+    (24, 'GDN', 2, 5, 4),
+    (27, 'GDN', 1, 45, 20), -- Engine fire detection (safety stock)
+    (27, 'GDN', 2, 30, 20),
+
+    -- Boeing spare parts at LHR
+    (17, 'LHR', 1, 6, 3),   -- Engine Fan Blade
+    (17, 'LHR', 2, 4, 3),
+    (19, 'LHR', 1, 18, 8),  -- Hydraulic Actuator
+    (19, 'LHR', 2, 12, 8),
+    (22, 'LHR', 1, 2, 1),   -- APU Unit
+    (22, 'LHR', 2, 1, 1),
+    (25, 'LHR', 1, 22, 10), -- Fuel Control Unit
+    (25, 'LHR', 2, 15, 10),
+    (28, 'LHR', 1, 7, 3),   -- Flight Control Computer
+    (28, 'LHR', 2, 5, 3),
+
+    -- Boeing spare parts at BER
+    (17, 'BER', 1, 9, 4),   -- Engine Fan Blade
+    (17, 'BER', 2, 6, 4),
+    (19, 'BER', 1, 20, 9),  -- Hydraulic Actuator
+    (19, 'BER', 2, 14, 9),
+    (22, 'BER', 1, 3, 2),   -- APU Unit
+    (22, 'BER', 2, 2, 2),
+    (25, 'BER', 1, 28, 12), -- Fuel Control Unit
+    (25, 'BER', 2, 18, 12),
+    (28, 'BER', 1, 10, 4),  -- Flight Control Computer
+    (28, 'BER', 2, 7, 4);
