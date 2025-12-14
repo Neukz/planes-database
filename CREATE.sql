@@ -3,9 +3,9 @@ CREATE TABLE producer (
 	name VARCHAR(30) NOT NULL
 		CHECK (name LIKE '[A-Z]%'),
 	partnership_start_date DATE NOT NULL
-		CHECK (partnership_start_date >= '1970-01-01' AND partnership_start_date <= DATEADD(YEAR, 1, GETDATE())),
+		CHECK (partnership_start_date >= '1970-01-01' AND partnership_start_date <= DATEADD(YEAR, 1, GETDATE())), -- TODO
 	partnership_end_date DATE
-		CHECK (partnership_end_date >= DATEADD(YEAR, 1, GETDATE()))
+		CHECK (partnership_end_date >= DATEADD(YEAR, 1, GETDATE())) -- TODO
 );
 
 
@@ -49,11 +49,11 @@ CREATE TABLE airport (
 	iata_code CHAR(3) PRIMARY KEY
 		CHECK (iata_code LIKE '[A-Z][A-Z][A-Z]'),
 	name VARCHAR(60) NOT NULL
-		CHECK (name LIKE '[A-Z][A-Za-z ]%'),	-- TODO
+		CHECK (name LIKE '[A-Z]%' AND name NOT LIKE '%[^A-Za-z ]%'),
 	country VARCHAR(50) NOT NULL
-		CHECK (country LIKE '[A-Z][A-Za-z ]%'),	-- TODO
+		CHECK (country LIKE '[A-Z]%' AND country NOT LIKE '%[^A-Za-z ]%'),
 	city VARCHAR(60) NOT NULL
-		CHECK (city LIKE '[A-Z][A-Za-z ]%')		-- TODO
+		CHECK (city LIKE '[A-Z]%' and city NOT LIKE '%[^A-Za-z ]%')
 );
 
 
@@ -65,7 +65,7 @@ CREATE TABLE airplane (
 	location_airport_iata_code CHAR(3) NOT NULL
 		REFERENCES airport(iata_code),
 	acquisition_date DATE NOT NULL
-		CHECK (acquisition_date >= '1970-01-01' AND acquisition_date <= GETDATE()),
+		CHECK (acquisition_date >= '1970-01-01' AND acquisition_date <= GETDATE()), -- TODO
 	status VARCHAR(12) NOT NULL
 		CHECK (status IN ('active', 'inspection', 'maintenance', 'suspended', 'retired'))
 );
@@ -85,11 +85,16 @@ CREATE TABLE workshop (
 CREATE TABLE employee (
 	id INT IDENTITY PRIMARY KEY,
 	first_name VARCHAR(30) NOT NULL
-		CHECK (first_name LIKE '[A-Z][a-z]%'),		-- TODO
+		CHECK (first_name LIKE '[A-Z]%' AND first_name NOT LIKE '%[^A-Za-z]%'),
 	last_name VARCHAR(30) NOT NULL
-		CHECK (last_name LIKE '[A-Z][a-z]%'),		-- TODO
+		CHECK (last_name LIKE '[A-Z]%' AND last_name NOT LIKE '%[^A-Za-z]%'),
 	email VARCHAR(40) UNIQUE NOT NULL
-		CHECK (email LIKE '[a-z].[a-z]%@lot.pl'),	-- TODO
+		CHECK (
+			email LIKE '[a-z].[a-z]%@lot.pl' AND			-- starts with letter + dot + letter
+			email NOT LIKE '[a-z].%[^a-z1-9]%@lot.pl' AND   -- only letters and digits 1-9 after dot
+			email NOT LIKE '%[1-9][a-z]%' AND				-- no digits after letters
+			email NOT LIKE '%[1-9][1-9]%'					-- no more than 1 digit
+		),
 	role VARCHAR(24) NOT NULL
 		CHECK (role IN ('Inspection Specialist', 'Maintenance Coordinator'))
 );
@@ -105,7 +110,7 @@ CREATE TABLE inspection (
 	type VARCHAR(16) NOT NULL
 		CHECK (type IN ('pre-flight', 'post-flight', 'routine', 'post-maintenance')),
 	date DATE NOT NULL
-		CHECK (date >= '1970-01-01' AND date <= DATEADD(YEAR, 1, GETDATE())),
+		CHECK (date >= '1970-01-01' AND date <= DATEADD(YEAR, 1, GETDATE())), -- TODO
 	result VARCHAR(10) NOT NULL
 		CHECK (result IN ('scheduled', 'pending', 'passed', 'failed'))
 );
@@ -120,9 +125,9 @@ CREATE TABLE maintenance (
 	workshop_airport_iata_code CHAR(3) NOT NULL,
 	workshop_number INT NOT NULL,
 	start_date DATE
-		CHECK (start_date >= '1970-01-01' AND start_date <= DATEADD(YEAR, 1, GETDATE())),
+		CHECK (start_date >= '1970-01-01' AND start_date <= DATEADD(YEAR, 1, GETDATE())), -- TODO
 	end_date DATE
-		CHECK (end_date >= '1970-01-01' AND end_date <= DATEADD(YEAR, 1, GETDATE())),
+		CHECK (end_date >= '1970-01-01' AND end_date <= DATEADD(YEAR, 1, GETDATE())), -- TODO
 
 	CONSTRAINT fk_maintenance_workshop
 		FOREIGN KEY (workshop_airport_iata_code, workshop_number)
