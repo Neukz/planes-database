@@ -22,7 +22,8 @@ CREATE TABLE product (
 
 CREATE TABLE airplane_model (
 	product_id INT PRIMARY KEY
-		REFERENCES product(id),
+		REFERENCES product(id)
+		ON DELETE CASCADE,
 	passenger_capacity INT NOT NULL
 		CHECK (passenger_capacity > 0),
 	range INT NOT NULL
@@ -36,7 +37,8 @@ CREATE TABLE airplane_model (
 
 CREATE TABLE spare_part (
 	product_id INT PRIMARY KEY
-		REFERENCES product(id),
+		REFERENCES product(id)
+		ON DELETE CASCADE,
 	type VARCHAR(10) NOT NULL
 		CHECK (type IN ('electrical', 'mechanical', 'hydraulic', 'avionics', 'structural', 'cabin', 'safety')),
 	description VARCHAR(500) NOT NULL,
@@ -75,7 +77,8 @@ CREATE TABLE airplane (
 CREATE TABLE workshop (
 	airport_iata_code CHAR(3) NOT NULL
 		REFERENCES airport(iata_code)
-		ON UPDATE CASCADE,
+		ON UPDATE CASCADE
+		ON DELETE CASCADE,
 	number INT NOT NULL
 		CHECK (number > 0),
 	is_occupied BIT NOT NULL,
@@ -141,7 +144,8 @@ CREATE TABLE maintenance (
 -- Resolve inspection-maintenance circular dependency
 ALTER TABLE inspection
 	ADD CONSTRAINT fk_inspection_maintenance
-		FOREIGN KEY (validated_maintenance_id) REFERENCES maintenance(id);
+		FOREIGN KEY (validated_maintenance_id) REFERENCES maintenance(id)
+		ON DELETE SET NULL;
 
 
 CREATE TABLE inventory_stock (
@@ -159,12 +163,14 @@ CREATE TABLE inventory_stock (
 		FOREIGN KEY (workshop_airport_iata_code, workshop_number)
 		REFERENCES workshop(airport_iata_code, number)
 		ON UPDATE CASCADE
+		ON DELETE CASCADE
 );
 
 
 CREATE TABLE maintenance_inventory_usage (
 	maintenance_id INT NOT NULL
-		REFERENCES maintenance(id),
+		REFERENCES maintenance(id)
+		ON DELETE CASCADE,
 	inventory_stock_id INT NOT NULL
 		REFERENCES inventory_stock(id),
 	quantity_used INT NOT NULL
