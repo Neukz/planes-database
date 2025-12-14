@@ -63,7 +63,8 @@ CREATE TABLE airplane (
 	airplane_model_id INT NOT NULL
 		REFERENCES airplane_model(product_id),
 	location_airport_iata_code CHAR(3) NOT NULL
-		REFERENCES airport(iata_code),
+		REFERENCES airport(iata_code)
+		ON UPDATE CASCADE,
 	acquisition_date DATE NOT NULL
 		CHECK (acquisition_date >= '1970-01-01' AND acquisition_date <= GETDATE()), -- TODO
 	status VARCHAR(12) NOT NULL
@@ -73,7 +74,8 @@ CREATE TABLE airplane (
 
 CREATE TABLE workshop (
 	airport_iata_code CHAR(3) NOT NULL
-		REFERENCES airport(iata_code),
+		REFERENCES airport(iata_code)
+		ON UPDATE CASCADE,
 	number INT NOT NULL
 		CHECK (number > 0),
 	is_occupied BIT NOT NULL,
@@ -103,7 +105,8 @@ CREATE TABLE employee (
 CREATE TABLE inspection (
 	id INT IDENTITY PRIMARY KEY,
 	airplane_registration_code CHAR(6) NOT NULL
-		REFERENCES airplane(registration_code),
+		REFERENCES airplane(registration_code)
+		ON UPDATE CASCADE,
 	performed_by_employee_id INT NOT NULL
 		REFERENCES employee(id),
 	validated_maintenance_id INT,
@@ -132,6 +135,7 @@ CREATE TABLE maintenance (
 	CONSTRAINT fk_maintenance_workshop
 		FOREIGN KEY (workshop_airport_iata_code, workshop_number)
 		REFERENCES workshop(airport_iata_code, number)
+		ON UPDATE CASCADE
 );
 
 -- Resolve inspection-maintenance circular dependency
@@ -154,6 +158,7 @@ CREATE TABLE inventory_stock (
 	CONSTRAINT fk_inventory_stock_workshop
 		FOREIGN KEY (workshop_airport_iata_code, workshop_number)
 		REFERENCES workshop(airport_iata_code, number)
+		ON UPDATE CASCADE
 );
 
 
