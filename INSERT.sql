@@ -26,6 +26,30 @@ VALUES
 	('BER', 'Berlin Brandenburg Airport', 'Germany', 'Berlin');
 
 
+INSERT INTO workshop (airport_iata_code, number, is_occupied)
+VALUES
+    ('GDN', 1, 0),
+    ('GDN', 2, 0),
+    ('WAW', 1, 0),
+    ('WAW', 2, 0),
+    ('BZG', 1, 0),
+    ('BZG', 2, 0),
+    ('KRK', 1, 0),
+    ('KRK', 2, 0),
+    ('LHR', 1, 0),
+    ('LHR', 2, 0),
+    ('DUB', 1, 0),
+    ('DUB', 2, 0),
+    ('CDG', 1, 0),
+    ('CDG', 2, 0),
+    ('ORY', 1, 0),
+    ('ORY', 2, 0),
+    ('AMS', 1, 0),
+    ('AMS', 2, 0),
+    ('BER', 1, 0),
+    ('BER', 2, 0);
+
+
 INSERT INTO product (producer_id, name, value)
 VALUES
     -- Airplane models (id: 1-15)
@@ -45,22 +69,22 @@ VALUES
     (9, 'ATR 72-600', 29000000),           -- $29M
     (10, 'COMAC C919', 50000000),          -- $50M
     
-    -- Spare parts (id: 16-30)
+    -- Spare parts, only for Airbus and Boeing (id: 16-30)
     (1, 'Landing Gear', 1250000),               -- $1.25M
-    (2, 'Engine Fan Blade', 850000),            -- $850K
+    (1, 'Engine Fan Blade', 850000),            -- $850K
     (1, 'Avionics Flight Computer', 325000),    -- $325K
-    (2, 'Hydraulic Actuator', 95000),           -- $95K
-    (3, 'Wing Flap Track', 275000),             -- $275K
+    (1, 'Hydraulic Actuator', 95000),           -- $95K
+    (1, 'Wing Flap Track', 275000),             -- $275K
     (1, 'Thrust Reverser', 1850000),            -- $1.85M
-    (2, 'APU Unit', 675000),                    -- $675K
-    (4, 'Passenger Seat', 12500),               -- $12.5K
-    (1, 'Weather Radar Antenna', 145000),       -- $145K
+    (1, 'APU Unit', 675000),                    -- $675K
+    (2, 'Passenger Seat', 12500),               -- $12.5K
+    (2, 'Weather Radar Antenna', 145000),       -- $145K
     (2, 'Fuel Control Unit', 89000),            -- $89K
-    (3, 'Cabin Pressure Controller', 68000),    -- $68K
-    (1, 'Flight Control Computer', 285000),     -- $285K
+    (2, 'Cabin Pressure Controller', 68000),    -- $68K
+    (2, 'Flight Control Computer', 285000),     -- $285K
     (2, 'Emergency Oxygen System', 1200),       -- $1.2K
-    (4, 'Emergency Slide Pack', 18500),         -- $18.5K
-    (10, 'Fire Detection System', 42000);       -- $42K
+    (2, 'Emergency Slide Pack', 18500),         -- $18.5K
+    (2, 'Fire Detection System', 42000);        -- $42K
 
 
 INSERT INTO airplane_model (product_id, passenger_capacity, range, max_speed, fuel_capacity)
@@ -115,110 +139,110 @@ VALUES
     ('John', 'Doe', 'j.doe@lot.pl', 'Maintenance Coordinator');
 
 
-INSERT INTO workshop (airport_iata_code, number, is_occupied)
-VALUES
-    ('GDN', 1, 1),
-    ('GDN', 2, 0),
-    ('WAW', 1, 1),
-    ('WAW', 2, 0),
-    ('BZG', 1, 0),
-    ('BZG', 2, 0),
-    ('KRK', 1, 0),
-    ('KRK', 2, 0),
-    ('LHR', 1, 1),
-    ('LHR', 2, 0),
-    ('DUB', 1, 0),
-    ('DUB', 2, 0),
-    ('CDG', 1, 0),
-    ('CDG', 2, 0),
-    ('ORY', 1, 0),
-    ('ORY', 2, 0),
-    ('AMS', 1, 0),
-    ('AMS', 2, 0),
-    ('BER', 1, 1),
-    ('BER', 2, 0);
-
-
 INSERT INTO airplane (registration_code, airplane_model_id, location_airport_iata_code, acquisition_date, status)
 VALUES
     -- Airbus
     ('SP-LAA', 1, 'WAW', '2015-03-10', 'active'),
-    ('SP-LAB', 1, 'GDN', '2016-06-20', 'maintenance'),
-    ('SP-LAC', 2, 'WAW', '2014-09-05', 'inspection'),
-    ('SP-LAD', 3, 'CDG', '2017-01-15', 'active'),
-    ('SP-LAE', 3, 'LHR', '2017-01-15', 'active'),
+    ('SP-LAB', 1, 'GDN', '2016-06-20', 'active'),
+    ('SP-LAC', 1, 'WAW', '2014-09-05', 'inspection'),
+    ('SP-LAD', 2, 'CDG', '2017-01-15', 'active'),
+    ('SP-LAE', 2, 'LHR', '2018-01-15', 'active'),
+    ('SP-LAF', 2, 'BER', '2018-01-15', 'active'),
+    ('SP-LAG', 3, 'BZG', '2018-01-01', 'active'),
+    ('SP-LAH', 3, 'BER', '2018-01-01', 'active'),
+    ('SP-LAI', 3, 'LHR', '2019-01-01', 'active'),
 
     -- Boeing
-    ('SP-LBA', 4, 'LHR', '2013-11-30', 'maintenance'),
-    ('SP-LBB', 5, 'DUB', '2012-05-22', 'active'),
-    ('SP-LBC', 6, 'AMS', '2018-02-14', 'active'),
-    ('SP-LBD', 6, 'BER', '2018-02-14', 'maintenance'),
-    ('SP-LBE', 7, 'BER', '2011-07-03', 'active'),
+    ('SP-LBA', 4, 'LHR', '2018-11-30', 'active'),
+    ('SP-LBB', 4, 'DUB', '2019-05-22', 'active'),
+    ('SP-LBC', 4, 'AMS', '2019-02-14', 'active'),
+    ('SP-LBD', 5, 'GDN', '2019-02-14', 'active'),
+    ('SP-LBE', 5, 'KRK', '2020-07-03', 'active'),
+    ('SP-LBF', 5, 'ORY', '2021-07-03', 'active'),
+    ('SP-LBG', 6, 'AMS', '2021-10-01', 'active'),
+    ('SP-LBH', 6, 'WAW', '2021-10-01', 'active'),
+    ('SP-LBI', 6, 'KRK', '2021-10-01', 'active'),
+    ('SP-LBJ', 7, 'BER', '2022-01-03', 'inspection'),
+    ('SP-LBK', 7, 'BZG', '2023-04-09', 'active'),
+    ('SP-LBL', 7, 'WAW', '2024-08-11', 'active'),
 
     -- Bombardier
     ('SP-LCA', 8, 'KRK', '2019-04-18', 'active'),
-    ('SP-LCB', 8, 'BZG', '2010-08-25', 'inspection'),
+    ('SP-LCB', 8, 'BZG', '2010-08-25', 'active'),
 
     -- Embraer
-    ('SP-LDA', 9, 'WAW', '2016-12-01', 'maintenance'),
+    ('SP-LDA', 9, 'WAW', '2016-12-01', 'active'),
     ('SP-LDB', 9, 'GDN', '2017-08-10', 'active'),
 
-    -- Gulfstream Aerospace
-    ('SP-LEA', 10, 'LHR', '2013-03-15', 'active'),
-
-    -- Mitsubishi Aircraft
-    ('SP-LFA', 11, 'CDG', '2018-11-20', 'active'),
-
-    -- Sukhoi
-    ('SP-LGA', 12, 'BER', '2015-06-12', 'active'),
-
-    -- De Havilland Canada
-    ('SP-LHA', 13, 'AMS', '2019-02-28', 'active'),
-
-    -- ATR
-    ('SP-LIA', 14, 'DUB', '2012-10-05', 'active'),
-
-    -- COMAC
-    ('SP-LJA', 15, 'ORY', '2014-07-22', 'active');
+    ('SP-LEA', 10, 'LHR', '2013-03-15', 'suspended'),  -- Gulfstream Aerospace
+    ('SP-LFA', 11, 'CDG', '2018-11-20', 'suspended'),  -- Mitsubishi Aircraft
+    ('SP-LGA', 12, 'BER', '2015-06-12', 'suspended'),  -- Sukhoi
+    ('SP-LHA', 13, 'AMS', '2019-02-28', 'retired'),    -- De Havilland Canada
+    ('SP-LIA', 14, 'DUB', '2012-10-05', 'retired'),    -- ATR
+    ('SP-LJA', 15, 'ORY', '2014-07-22', 'retired');    -- COMAC
 
 
 INSERT INTO inventory_stock (spare_part_id, workshop_airport_iata_code, workshop_number, quantity, reorder_level)
 VALUES
-    -- Airbus spare parts at GDN
-    (16, 'GDN', 1, 12, 5),  -- Landing Gear
-    (16, 'GDN', 2, 8, 5),
-    (18, 'GDN', 1, 25, 10), -- Avionics Flight Computer
-    (18, 'GDN', 2, 15, 10),
-    (21, 'GDN', 1, 3, 2),   -- Thrust Reverser
-    (21, 'GDN', 2, 2, 2),
-    (24, 'GDN', 1, 8, 4),   -- Weather Radar Antenna
-    (24, 'GDN', 2, 5, 4),
-    (27, 'GDN', 1, 45, 20), -- Engine fire detection
-    (27, 'GDN', 2, 30, 20),
+    -- GDN
+    (16, 'GDN', 1, 5, 2),
+    (17, 'GDN', 1, 8, 3),
+    (23, 'GDN', 1, 20, 5),
+    (24, 'GDN', 1, 3, 1),
 
-    -- Boeing spare parts at LHR
-    (17, 'LHR', 1, 6, 3),   -- Engine Fan Blade
-    (17, 'LHR', 2, 4, 3),
-    (19, 'LHR', 1, 18, 8),  -- Hydraulic Actuator
-    (19, 'LHR', 2, 12, 8),
-    (22, 'LHR', 1, 2, 1),   -- APU Unit
-    (22, 'LHR', 2, 1, 1),
-    (25, 'LHR', 1, 22, 10), -- Fuel Control Unit
-    (25, 'LHR', 2, 15, 10),
-    (28, 'LHR', 1, 7, 3),   -- Flight Control Computer
-    (28, 'LHR', 2, 5, 3),
+    -- WAW
+    (18, 'WAW', 1, 4, 2),
+    (19, 'WAW', 1, 6, 3),
+    (25, 'WAW', 1, 5, 2),
+    (26, 'WAW', 1, 4, 2),
 
-    -- Boeing spare parts at BER
-    (17, 'BER', 1, 9, 4),   -- Engine Fan Blade
-    (17, 'BER', 2, 6, 4),
-    (19, 'BER', 1, 20, 9),  -- Hydraulic Actuator
-    (19, 'BER', 2, 14, 9),
-    (22, 'BER', 1, 3, 2),   -- APU Unit
-    (22, 'BER', 2, 2, 2),
-    (25, 'BER', 1, 28, 12), -- Fuel Control Unit
-    (25, 'BER', 2, 18, 12),
-    (28, 'BER', 1, 10, 4),  -- Flight Control Computer
-    (28, 'BER', 2, 7, 4);
+    -- BZG
+    (20, 'BZG', 1, 7, 3),
+    (21, 'BZG', 1, 2, 1),
+    (27, 'BZG', 1, 6, 2),
+    (28, 'BZG', 1, 2, 1),
+
+    -- KRK
+    (22, 'KRK', 1, 3, 1),
+    (16, 'KRK', 1, 4, 2),
+    (29, 'KRK', 1, 15, 5),
+    (30, 'KRK', 1, 8, 3),
+
+    -- LHR
+    (17, 'LHR', 1, 6, 2),
+    (19, 'LHR', 1, 10, 4),
+    (23, 'LHR', 1, 25, 10),
+    (25, 'LHR', 1, 6, 3),
+    
+    -- DUB
+    (18, 'DUB', 1, 5, 2),
+    (20, 'DUB', 1, 8, 3),
+    (24, 'DUB', 1, 4, 2),
+    (26, 'DUB', 1, 5, 2),
+
+    -- CDG
+    (21, 'CDG', 1, 3, 1),
+    (22, 'CDG', 1, 4, 2),
+    (27, 'CDG', 1, 8, 3),
+    (29, 'CDG', 1, 12, 4),
+
+    -- ORY
+    (16, 'ORY', 1, 4, 2),
+    (19, 'ORY', 1, 5, 2),
+    (28, 'ORY', 1, 3, 1),
+    (30, 'ORY', 1, 6, 2),
+
+    -- AMS
+    (17, 'AMS', 1, 5, 2),
+    (20, 'AMS', 1, 9, 4),
+    (23, 'AMS', 1, 18, 6),
+    (25, 'AMS', 1, 4, 2),
+
+    -- BER
+    (18, 'BER', 1, 3, 1),
+    (21, 'BER', 1, 2, 1),
+    (24, 'BER', 1, 3, 1),
+    (26, 'BER', 1, 5, 2);
 
 
 INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, type, date, result)
@@ -232,103 +256,133 @@ VALUES
 
     -- Failed, non-post-maintenance - lead to maintenance (id: 6–25)
     ('SP-LAA', 1, 'pre-flight',  '2025-10-06', 'failed'),
-    ('SP-LAD', 3, 'post-flight', '2025-10-07', 'failed'),
-    ('SP-LAE', 5, 'routine',     '2025-10-08', 'failed'),
-    ('SP-LBB', 1, 'pre-flight',  '2025-10-09', 'failed'),
-    ('SP-LBC', 3, 'post-flight', '2025-10-10', 'failed'),
-    ('SP-LCA', 5, 'routine',     '2025-10-11', 'failed'),
-    ('SP-LDB', 1, 'pre-flight',  '2025-10-12', 'failed'),
-    ('SP-LEA', 3, 'post-flight', '2025-10-13', 'failed'),
-    ('SP-LFA', 5, 'routine',     '2025-10-14', 'failed'),
-    ('SP-LGA', 1, 'pre-flight',  '2025-10-15', 'failed'),
-    ('SP-LHA', 3, 'post-flight', '2025-10-16', 'failed'),
-    ('SP-LIA', 5, 'routine',     '2025-10-17', 'failed'),
-    ('SP-LJA', 1, 'pre-flight',  '2025-10-18', 'failed'),
-    ('SP-LAA', 3, 'post-flight', '2025-10-19', 'failed'),
-    ('SP-LAD', 5, 'routine',     '2025-10-20', 'failed'),
-    ('SP-LAE', 1, 'pre-flight',  '2025-10-21', 'failed'),
-    ('SP-LBB', 3, 'post-flight', '2025-10-22', 'failed'),
-    ('SP-LBC', 5, 'routine',     '2025-10-23', 'failed'),
-    ('SP-LCA', 1, 'pre-flight',  '2025-10-24', 'failed'),
-    ('SP-LDB', 3, 'post-flight', '2025-10-25', 'failed');
+    ('SP-LAB', 3, 'post-flight', '2025-10-07', 'failed'),
+    ('SP-LAC', 5, 'routine',     '2025-10-08', 'failed'),
+    ('SP-LAD', 1, 'pre-flight',  '2025-10-09', 'failed'),
+    ('SP-LAE', 3, 'post-flight', '2025-10-10', 'failed'),
+    ('SP-LAF', 5, 'routine',     '2025-10-11', 'failed'),
+    ('SP-LAG', 1, 'pre-flight',  '2025-10-12', 'failed'),
+    ('SP-LAH', 3, 'post-flight', '2025-10-13', 'failed'),
+    ('SP-LAI', 5, 'routine',     '2025-10-14', 'failed'),
+    ('SP-LBA', 1, 'pre-flight',  '2025-10-15', 'failed'),
+    ('SP-LBB', 3, 'post-flight', '2025-10-16', 'failed'),
+    ('SP-LBC', 5, 'routine',     '2025-10-17', 'failed'),
+    ('SP-LBD', 1, 'pre-flight',  '2025-10-18', 'failed'),
+    ('SP-LBE', 3, 'post-flight', '2025-10-19', 'failed'),
+    ('SP-LBF', 5, 'routine',     '2025-10-20', 'failed'),
+    ('SP-LBG', 1, 'pre-flight',  '2025-10-21', 'failed'),
+    ('SP-LBH', 3, 'post-flight', '2025-10-22', 'failed'),
+    ('SP-LBI', 5, 'routine',     '2025-10-23', 'failed'),
+    ('SP-LBJ', 1, 'pre-flight',  '2025-10-24', 'failed'),
+    ('SP-LBK', 3, 'post-flight', '2025-10-25', 'failed');
 
 
 INSERT INTO maintenance (initiating_inspection_id, coordinated_by_employee_id, workshop_airport_iata_code, workshop_number, start_date, end_date)
 VALUES
     -- Maintenances from failed non-post-maintenance inspections 6-25 (id: 1-20),
-    (6,  2, 'WAW', 1, '2025-10-06', '2025-11-01'),
-    (7,  4, 'CDG', 1, '2025-10-07', '2025-11-02'),
-    (8,  2, 'LHR', 1, '2025-10-08', '2025-11-03'),
-    (9,  4, 'DUB', 1, '2025-10-09', '2025-11-04'),
-    (10, 6, 'AMS', 1, '2025-10-10', '2025-11-05'),
-    (11, 8, 'KRK', 1, '2025-10-11', '2025-11-06'),
+    (6,  2,  'WAW', 1, '2025-10-06', '2025-11-01'),
+    (7,  4,  'CDG', 1, '2025-10-07', '2025-11-02'),
+    (8,  2,  'LHR', 1, '2025-10-08', '2025-11-03'),
+    (9,  4,  'DUB', 1, '2025-10-09', '2025-11-04'),
+    (10, 6,  'AMS', 1, '2025-10-10', '2025-11-05'),
+    (11, 8,  'KRK', 1, '2025-10-11', '2025-11-06'),
     (12, 10, 'GDN', 1, '2025-10-12', '2025-11-07'),
-    (13, 2, 'LHR', 1, '2025-10-13', '2025-11-08'),
-    (14, 4, 'CDG', 1, '2025-10-14', '2025-11-09'),
-    (15, 6, 'BER', 1, '2025-10-15', '2025-11-10'),
-    (16, 8, 'AMS', 1, '2025-10-16', '2025-11-11'),
+    (13, 2,  'LHR', 1, '2025-10-13', '2025-11-08'),
+    (14, 4,  'CDG', 1, '2025-10-14', '2025-11-09'),
+    (15, 6,  'BER', 1, '2025-10-15', '2025-11-10'),
+    (16, 8,  'AMS', 1, '2025-10-16', '2025-11-11'),
     (17, 10, 'DUB', 1, '2025-10-17', '2025-11-12'),
-    (18, 2, 'ORY', 1, '2025-10-18', '2025-11-13'),
-    (19, 4, 'WAW', 1, '2025-10-19', '2025-11-14'),
-    (20, 6, 'CDG', 1, '2025-10-20', '2025-11-15'),
-    (21, 8, 'LHR', 1, '2025-10-21', '2025-11-16'),
+    (18, 2,  'ORY', 1, '2025-10-18', '2025-11-13'),
+    (19, 4,  'WAW', 1, '2025-10-19', '2025-11-14'),
+    (20, 6,  'CDG', 1, '2025-10-20', '2025-11-15'),
+    (21, 8,  'LHR', 1, '2025-10-21', '2025-11-16'),
     (22, 10, 'DUB', 1, '2025-10-22', '2025-11-17'),
-    (23, 2, 'AMS', 1, '2025-10-23', '2025-11-18'),
-    (24, 4, 'KRK', 1, '2025-10-24', '2025-11-19'),
-    (25, 6, 'GDN', 1, '2025-10-25', '2025-11-20');
+    (23, 2,  'AMS', 1, '2025-10-23', '2025-11-18'),
+    (24, 4,  'KRK', 1, '2025-10-24', '2025-11-19'),
+    (25, 6,  'GDN', 1, '2025-10-25', '2025-11-20');
 
 
 INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, validated_maintenance_id, type, date, result)
 VALUES
     -- Passed, post-maintenance - confirm maintenances 1-15 (id: 26-40)
-    ('SP-LAA', 1, 1, 'post-maintenance', '2025-11-01', 'passed'),
-    ('SP-LAD', 3, 2, 'post-maintenance', '2025-11-02', 'passed'),
-    ('SP-LAE', 5, 3, 'post-maintenance', '2025-11-03', 'passed'),
-    ('SP-LBB', 1, 4, 'post-maintenance', '2025-11-04', 'passed'),
-    ('SP-LBC', 3, 5, 'post-maintenance', '2025-11-05', 'passed'),
-    ('SP-LCA', 5, 6, 'post-maintenance', '2025-11-06', 'passed'),
-    ('SP-LDB', 1, 7, 'post-maintenance', '2025-11-07', 'passed'),
-    ('SP-LEA', 3, 8, 'post-maintenance', '2025-11-08', 'passed'),
-    ('SP-LFA', 5, 9, 'post-maintenance', '2025-11-09', 'passed'),
-    ('SP-LGA', 1, 10, 'post-maintenance', '2025-11-10', 'passed'),
-    ('SP-LHA', 3, 11, 'post-maintenance', '2025-11-11', 'passed'),
-    ('SP-LIA', 5, 12, 'post-maintenance', '2025-11-12', 'passed'),
-    ('SP-LJA', 1, 13, 'post-maintenance', '2025-11-13', 'passed'),
-    ('SP-LAA', 3, 14, 'post-maintenance', '2025-11-14', 'passed'),
-    ('SP-LAD', 5, 15, 'post-maintenance', '2025-11-15', 'passed'),
+    ('SP-LAA', 1, 1,  'post-maintenance', '2025-11-01', 'passed'),
+    ('SP-LAB', 3, 2,  'post-maintenance', '2025-11-02', 'passed'),
+    ('SP-LAC', 5, 3,  'post-maintenance', '2025-11-03', 'passed'),
+    ('SP-LAD', 1, 4,  'post-maintenance', '2025-11-04', 'passed'),
+    ('SP-LAE', 3, 5,  'post-maintenance', '2025-11-05', 'passed'),
+    ('SP-LAF', 5, 6,  'post-maintenance', '2025-11-06', 'passed'),
+    ('SP-LAG', 1, 7,  'post-maintenance', '2025-11-07', 'passed'),
+    ('SP-LAH', 3, 8,  'post-maintenance', '2025-11-08', 'passed'),
+    ('SP-LAI', 5, 9,  'post-maintenance', '2025-11-09', 'passed'),
+    ('SP-LBA', 1, 10, 'post-maintenance', '2025-11-10', 'passed'),
+    ('SP-LBB', 3, 11, 'post-maintenance', '2025-11-11', 'passed'),
+    ('SP-LBC', 5, 12, 'post-maintenance', '2025-11-12', 'passed'),
+    ('SP-LBD', 1, 13, 'post-maintenance', '2025-11-13', 'passed'),
+    ('SP-LBE', 3, 14, 'post-maintenance', '2025-11-14', 'passed'),
+    ('SP-LBF', 5, 15, 'post-maintenance', '2025-11-15', 'passed'),
 
     -- Failed, post-maintenance - fail maintenances 16-20 (id: 41–45)
-    ('SP-LAE', 1, 16, 'post-maintenance', '2025-11-16', 'failed'),
-    ('SP-LBB', 3, 17, 'post-maintenance', '2025-11-17', 'failed'),
-    ('SP-LBC', 5, 18, 'post-maintenance', '2025-11-18', 'failed'),
-    ('SP-LCA', 1, 19, 'post-maintenance', '2025-11-19', 'failed'),
-    ('SP-LDB', 3, 20, 'post-maintenance', '2025-11-20', 'failed');
+    ('SP-LBG', 1, 16, 'post-maintenance', '2025-11-16', 'failed'),
+    ('SP-LBH', 3, 17, 'post-maintenance', '2025-11-17', 'failed'),
+    ('SP-LBI', 5, 18, 'post-maintenance', '2025-11-18', 'failed'),
+    ('SP-LBJ', 1, 19, 'post-maintenance', '2025-11-19', 'failed'),
+    ('SP-LBK', 3, 20, 'post-maintenance', '2025-11-20', 'failed');
 
 
 INSERT INTO maintenance (initiating_inspection_id, coordinated_by_employee_id, workshop_airport_iata_code, workshop_number, start_date, end_date)
 VALUES
     -- Maintenances from failed post-maintenance inspections 41-45 (id: 21-25)
-    (41, 2, 'LHR', 1, '2025-11-16', '2025-11-21'),
-    (42, 4, 'DUB', 1, '2025-11-17', '2025-11-22'),
-    (43, 6, 'AMS', 1, '2025-11-18', '2025-11-23'),
-    (44, 8, 'KRK', 1, '2025-11-19', '2025-11-24'),
+    (41, 2,  'LHR', 1, '2025-11-16', '2025-11-21'),
+    (42, 4,  'DUB', 1, '2025-11-17', '2025-11-22'),
+    (43, 6,  'AMS', 1, '2025-11-18', '2025-11-23'),
+    (44, 8,  'KRK', 1, '2025-11-19', '2025-11-24'),
     (45, 10, 'GDN', 1, '2025-11-20', '2025-11-25');
 
 
 INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, validated_maintenance_id, type, date, result)
 VALUES
     -- Passed, post-maintenance - confirm the maintenances 21-25 triggered above (id: 46–50)
-    ('SP-LAE', 1, 21, 'post-maintenance', '2025-11-21', 'passed'),
-    ('SP-LBB', 3, 22, 'post-maintenance', '2025-11-22', 'passed'),
-    ('SP-LBC', 5, 23, 'post-maintenance', '2025-11-23', 'passed'),
-    ('SP-LCA', 1, 24, 'post-maintenance', '2025-11-24', 'passed'),
-    ('SP-LDB', 3, 25, 'post-maintenance', '2025-11-25', 'passed'),
+    ('SP-LBG', 1, 21, 'post-maintenance', '2025-11-21', 'passed'),
+    ('SP-LBH', 3, 22, 'post-maintenance', '2025-11-22', 'passed'),
+    ('SP-LBI', 5, 23, 'post-maintenance', '2025-11-23', 'passed'),
+    ('SP-LBJ', 1, 24, 'post-maintenance', '2025-11-24', 'passed'),
+    ('SP-LBK', 3, 25, 'post-maintenance', '2025-11-25', 'passed'),
 
     -- Pending (id: 51–52)
     ('SP-LAC', 1, NULL, 'pre-flight',  '2025-12-13', 'pending'),
-    ('SP-LCB', 3, NULL, 'post-flight', '2025-12-13', 'pending'),
+    ('SP-LBJ', 3, NULL, 'post-flight', '2025-12-13', 'pending'),
 
     -- Scheduled (id: 53–55)
-    ('SP-LGA', 1, NULL, 'pre-flight',  '2026-01-09', 'scheduled'),
-    ('SP-LHA', 3, NULL, 'post-flight', '2026-01-20', 'scheduled'),
-    ('SP-LIA', 5, NULL, 'routine',     '2025-01-27', 'scheduled');
+    ('SP-LBJ', 1, NULL, 'pre-flight',  '2026-01-09', 'scheduled'),
+    ('SP-LBK', 3, NULL, 'post-flight', '2026-01-20', 'scheduled'),
+    ('SP-LBL', 5, NULL, 'routine',     '2026-01-27', 'scheduled');
+
+
+INSERT INTO maintenance_inventory_usage (maintenance_id, inventory_stock_id, quantity_used)
+VALUES
+    (1, 6, 1),
+    (2, 26, 1),
+    (3, 17, 2),
+    (4, 21, 1),
+    (5, 33, 1),
+    (6, 13, 1),
+    (7, 1, 1),
+    (8, 18, 1),
+    (9, 25, 2),
+    (10, 37, 1),
+    (10, 39, 1),
+    (11, 35, 1),
+    (12, 23, 2),
+    (13, 31, 1),
+    (14, 7, 1),
+    (15, 28, 1),
+    (16, 20, 1),
+    (17, 24, 1),
+    (18, 36, 2),
+    (19, 15, 1),
+    (20, 3, 1),
+    (21, 19, 1),
+    (22, 24, 1),
+    (23, 35, 1),
+    (24, 16, 1),
+    (25, 4, 1);
