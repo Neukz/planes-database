@@ -3,9 +3,11 @@ CREATE TABLE producer (
 	name VARCHAR(30) NOT NULL
 		CHECK (name LIKE '[A-Z]%'),
 	partnership_start_date DATE NOT NULL
-		CHECK (partnership_start_date >= '1970-01-01' AND partnership_start_date <= DATEADD(YEAR, 1, GETDATE())), -- TODO
-	partnership_end_date DATE
-		CHECK (partnership_end_date >= DATEADD(YEAR, 1, GETDATE())) -- TODO
+		CHECK (partnership_start_date >= '1970-01-01' AND partnership_start_date <= DATEADD(YEAR, 1, GETDATE())),
+	partnership_end_date DATE,
+		
+	CONSTRAINT ck_partnership_start_date
+		CHECK (partnership_end_date >= DATEADD(YEAR, 1, partnership_start_date))
 );
 
 
@@ -14,7 +16,7 @@ CREATE TABLE product (
 	producer_id INT NOT NULL
 		REFERENCES producer(id),
 	name VARCHAR(30) NOT NULL
-		CHECK (name LIKE '[A-Z]%'),
+		CHECK (name LIKE '[A-Z0-9]%'),
 	value INT NOT NULL
 		CHECK (value > 0 AND value % 100 = 0)
 );
@@ -68,7 +70,7 @@ CREATE TABLE airplane (
 		REFERENCES airport(iata_code)
 		ON UPDATE CASCADE,
 	acquisition_date DATE NOT NULL
-		CHECK (acquisition_date >= '1970-01-01' AND acquisition_date <= GETDATE()), -- TODO
+		CHECK (acquisition_date >= '1970-01-01' AND acquisition_date <= GETDATE()),
 	status VARCHAR(12) NOT NULL
 		CHECK (status IN ('active', 'inspection', 'maintenance', 'suspended', 'retired'))
 );
@@ -116,7 +118,7 @@ CREATE TABLE inspection (
 	type VARCHAR(16) NOT NULL
 		CHECK (type IN ('pre-flight', 'post-flight', 'routine', 'post-maintenance')),
 	date DATE NOT NULL
-		CHECK (date >= '1970-01-01' AND date <= DATEADD(YEAR, 1, GETDATE())), -- TODO
+		CHECK (date >= '1970-01-01' AND date <= DATEADD(YEAR, 1, GETDATE())),
 	result VARCHAR(10) NOT NULL
 		CHECK (result IN ('scheduled', 'pending', 'passed', 'failed'))
 );
@@ -131,9 +133,11 @@ CREATE TABLE maintenance (
 	workshop_airport_iata_code CHAR(3) NOT NULL,
 	workshop_number INT NOT NULL,
 	start_date DATE
-		CHECK (start_date >= '1970-01-01' AND start_date <= DATEADD(YEAR, 1, GETDATE())), -- TODO
-	end_date DATE
-		CHECK (end_date >= '1970-01-01' AND end_date <= DATEADD(YEAR, 1, GETDATE())), -- TODO
+		CHECK (start_date >= '1970-01-01' AND start_date <= DATEADD(YEAR, 1, GETDATE())),
+	end_date DATE,
+
+	CONSTRAINT ck_end_date
+		CHECK (end_date >= start_date AND end_date <= GETDATE()),
 
 	CONSTRAINT fk_maintenance_workshop
 		FOREIGN KEY (workshop_airport_iata_code, workshop_number)
