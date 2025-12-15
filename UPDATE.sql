@@ -21,7 +21,7 @@ UPDATE inspection
 		result = 'scheduled';
 
 
--- Partnership with Embraer (id = 4) is extender for 3 more years
+-- Partnership with Embraer (id = 4) is extended for 3 more years
 UPDATE producer
 	SET partnership_end_date = DATEADD(YEAR, 3, partnership_end_date)
 	WHERE id = 4;
