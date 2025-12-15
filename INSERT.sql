@@ -1,17 +1,19 @@
+--- producer, 10 records
 INSERT INTO producer (name, partnership_start_date, partnership_end_date)
 VALUES
 	('Airbus', '1992-01-01', NULL),
 	('Boeing', '1994-07-01', NULL),
 	('Bombardier', '1997-10-01', NULL),
-	('Embraer', '1999-04-01', NULL),
-	('Gulfstream Aerospace', '2005-07-01', NULL),
+	('Embraer', '1999-04-01', '2026-01-31'),
+	('Gulfstream Aerospace', '2005-07-01', '2029-12-31'),
 	('Mitsubishi Aircraft', '2012-01-01', '2030-12-31'),
 	('Sukhoi', '2008-01-01', '2027-10-31'),
-	('De Havilland Canada', '2004-04-01', '2027-06-30'),
-	('ATR', '1992-01-01', '2029-12-31'),
-	('COMAC', '2001-01-01', '2027-12-31');
+	('De Havilland Canada', '2004-04-01', '2023-06-30'),
+	('ATR', '1992-01-01', '2009-12-31'),
+	('COMAC', '2001-01-01', '2007-12-31');
 
 
+-- airport, 10 records
 INSERT INTO airport (iata_code, name, country, city)
 VALUES
     ('GDN', 'Gdansk Lech Walesa Airport', 'Poland', 'Gdansk'),
@@ -26,6 +28,7 @@ VALUES
 	('BER', 'Berlin Brandenburg Airport', 'Germany', 'Berlin');
 
 
+-- workshop, 20 records
 INSERT INTO workshop (airport_iata_code, number, is_occupied)
 VALUES
     ('GDN', 1, 0),
@@ -50,24 +53,25 @@ VALUES
     ('BER', 2, 0);
 
 
+-- product, 30 records
 INSERT INTO product (producer_id, name, value)
 VALUES
     -- Airplane models (id: 1-15)
-    (1, 'Airbus A320neo', 112000000),      -- $112M
-    (1, 'Airbus A321neo', 129000000),      -- $129M  
-    (1, 'Airbus A350-900', 317000000),     -- $317M
-    (2, 'Boeing 737-800', 106000000),      -- $106M
-    (2, 'Boeing 737 MAX 8', 121000000),    -- $121M
-    (2, 'Boeing 787-8', 248000000),        -- $248M
-    (2, 'Boeing 787-9', 292000000),        -- $292M
-    (3, 'Bombardier CRJ900', 52000000),    -- $52M
-    (4, 'Embraer E195-E2', 63000000),      -- $63M
-    (5, 'Gulfstream G650ER', 70000000),    -- $70M
-    (6, 'SpaceJet M90', 47000000),         -- $47M
-    (7, 'Superjet 100', 36000000),         -- $36M
-    (8, 'Dash 8 Q400', 32000000),          -- $32M
-    (9, 'ATR 72-600', 29000000),           -- $29M
-    (10, 'COMAC C919', 50000000),          -- $50M
+    (1,  'A320neo', 112000000),      -- $112M
+    (1,  'A321neo', 129000000),      -- $129M  
+    (1,  'A350-900', 317000000),     -- $317M
+    (2,  '737-800', 106000000),      -- $106M
+    (2,  '737 MAX 8', 121000000),    -- $121M
+    (2,  '787-8', 248000000),        -- $248M
+    (2,  '787-9', 292000000),        -- $292M
+    (3,  'CRJ900', 52000000),    -- $52M
+    (4,  'E195-E2', 63000000),      -- $63M
+    (5,  'G650ER', 70000000),    -- $70M
+    (6,  'SpaceJet M90', 47000000),         -- $47M
+    (7,  'Superjet 100', 36000000),         -- $36M
+    (8,  'Dash 8 Q400', 32000000),          -- $32M
+    (9,  '72-600', 29000000),           -- $29M
+    (10, 'C919', 50000000),          -- $50M
     
     -- Spare parts, only for Airbus and Boeing (id: 16-30)
     (1, 'Landing Gear', 1250000),               -- $1.25M
@@ -87,6 +91,7 @@ VALUES
     (2, 'Fire Detection System', 42000);        -- $42K
 
 
+-- airplane_model, 15 records
 INSERT INTO airplane_model (product_id, passenger_capacity, range, max_speed, fuel_capacity)
 VALUES
     (1, 180, 6500, 840, 26500),    -- A320neo
@@ -106,39 +111,27 @@ VALUES
     (15, 168, 5600, 870, 26000);   -- C919
 
 
+-- spare_prat, 15 records
 INSERT INTO spare_part (product_id, type, description, warranty_period)
 VALUES
     (16, 'mechanical', 'Main landing gear truck with shock absorbers', 36),
     (17, 'mechanical', 'High pressure turbine fan blade set', 24),
-    (18, 'avionics', 'Primary flight management computer module', 48),
-    (19, 'hydraulic', 'Primary flight control surface actuator', 30),
+    (18, 'avionics',   'Primary flight management computer module', 48),
+    (19, 'hydraulic',  'Primary flight control surface actuator', 30),
     (20, 'structural', 'Inboard flap track with bearings', 60),
     (21, 'mechanical', 'Cascade thrust reverser', 24),
     (22, 'electrical', 'Auxiliary power unit with starter generator', 36),
-    (23, 'cabin', 'Economy class seat with 16G compliance', 18),
-    (24, 'avionics', 'Multi-scan weather radar transceiver', 48),
-    (25, 'hydraulic', 'Electronic engine fuel control unit', 30),
-    (26, 'avionics', 'Digital cabin pressure and outflow valve controller', 36),
-    (27, 'safety', 'Engine fire detection and suppression loop', 24),
-    (28, 'avionics', 'Triple redundant flight control computer', 48),
-    (29, 'safety', 'Passenger oxygen mask drop system', 12),
-    (30, 'safety', 'Type III emergency evacuation slide with inflation system', 18);
+    (23, 'cabin',      'Economy class seat with 16G compliance', 18),
+    (24, 'avionics',   'Multi-scan weather radar transceiver', 48),
+    (25, 'hydraulic',  'Electronic engine fuel control unit', 30),
+    (26, 'avionics',   'Digital cabin pressure and outflow valve controller', 36),
+    (27, 'safety',     'Engine fire detection and suppression loop', 24),
+    (28, 'avionics',   'Triple redundant flight control computer', 48),
+    (29, 'safety',     'Passenger oxygen mask drop system', 12),
+    (30, 'safety',     'Type III emergency evacuation slide with inflation system', 18);
 
 
-INSERT INTO employee (first_name, last_name, email, role)
-VALUES
-    ('Jan', 'Kowalski', 'j.kowalski@lot.pl', 'Inspection Specialist'),
-    ('Robert', 'Lewandowski', 'r.lewandowski@lot.pl', 'Maintenance Coordinator'),
-    ('Adam', 'Nowak', 'a.nowak@lot.pl', 'Inspection Specialist'),
-    ('Joachim', 'Wozniak', 'j.wozniak@lot.pl', 'Maintenance Coordinator'),
-    ('John', 'Smith', 'j.smith@lot.pl', 'Inspection Specialist'),
-    ('Krzysztof', 'Malinowski', 'k.malinowski@lot.pl', 'Maintenance Coordinator'),
-    ('Edward', 'Dzban', 'e.dzban@lot.pl', 'Inspection Specialist'),
-    ('Marek', 'Grabowski', 'm.grabowski@lot.pl', 'Maintenance Coordinator'),
-    ('Maciej', 'Komorowski', 'm.komorowski@lot.pl', 'Inspection Specialist'),
-    ('John', 'Doe', 'j.doe@lot.pl', 'Maintenance Coordinator');
-
-
+-- airplane, 31 records
 INSERT INTO airplane (registration_code, airplane_model_id, location_airport_iata_code, acquisition_date, status)
 VALUES
     -- Airbus
@@ -174,14 +167,15 @@ VALUES
     ('SP-LDA', 9, 'WAW', '2016-12-01', 'active'),
     ('SP-LDB', 9, 'GDN', '2017-08-10', 'active'),
 
-    ('SP-LEA', 10, 'LHR', '2013-03-15', 'suspended'),  -- Gulfstream Aerospace
-    ('SP-LFA', 11, 'CDG', '2018-11-20', 'suspended'),  -- Mitsubishi Aircraft
-    ('SP-LGA', 12, 'BER', '2015-06-12', 'suspended'),  -- Sukhoi
-    ('SP-LHA', 13, 'AMS', '2019-02-28', 'retired'),    -- De Havilland Canada
-    ('SP-LIA', 14, 'DUB', '2012-10-05', 'retired'),    -- ATR
-    ('SP-LJA', 15, 'ORY', '2014-07-22', 'retired');    -- COMAC
+    ('SP-LEA', 10, 'LHR', '2015-03-15', 'suspended'),  -- Gulfstream Aerospace
+    ('SP-LFA', 11, 'CDG', '2016-11-20', 'suspended'),  -- Mitsubishi Aircraft
+    ('SP-LGA', 12, 'BER', '2017-06-12', 'suspended'),  -- Sukhoi
+    ('SP-LHA', 13, 'AMS', '2016-02-28', 'retired'),    -- De Havilland Canada
+    ('SP-LIA', 14, 'DUB', '2006-10-05', 'retired'),    -- ATR
+    ('SP-LJA', 15, 'ORY', '2005-07-22', 'retired');    -- COMAC
 
 
+-- inventory_stock, 40 records
 INSERT INTO inventory_stock (spare_part_id, workshop_airport_iata_code, workshop_number, quantity, reorder_level)
 VALUES
     -- GDN
@@ -245,6 +239,23 @@ VALUES
     (26, 'BER', 1, 5, 2);
 
 
+-- employee, 11 records
+INSERT INTO employee (first_name, last_name, email, role)
+VALUES
+    ('Jan', 'Kowalski', 'j.kowalski@lot.pl', 'Inspection Specialist'),
+    ('Robert', 'Lewandowski', 'r.lewandowski@lot.pl', 'Maintenance Coordinator'),
+    ('Joachim', 'Wozniak', 'j.wozniak@lot.pl', 'Inspection Specialist'),
+    ('Adam', 'Nowak', 'a.nowak@lot.pl', 'Maintenance Coordinator'),
+    ('John', 'Smith', 'j.smith@lot.pl', 'Inspection Specialist'),
+    ('Krzysztof', 'Malinowski', 'k.malinowski@lot.pl', 'Maintenance Coordinator'),
+    ('Edward', 'Dzban', 'e.dzban@lot.pl', 'Inspection Specialist'),
+    ('Marek', 'Grabowski', 'm.grabowski@lot.pl', 'Maintenance Coordinator'),
+    ('Maciej', 'Komorowski', 'm.komorowski@lot.pl', 'Inspection Specialist'),
+    ('John', 'Doe', 'j.doe@lot.pl', 'Maintenance Coordinator'),
+    ('Jack', 'Doe', 'j.doe1@lot.pl', 'Inspection Specialist');
+
+
+-- inspection, 25 records
 INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, type, date, result)
 VALUES
     -- Passed, non-post-maintenance (id: 1-5)
@@ -277,6 +288,7 @@ VALUES
     ('SP-LBK', 3, 'post-flight', '2025-10-25', 'failed');
 
 
+-- maintenance, 20 records
 INSERT INTO maintenance (initiating_inspection_id, coordinated_by_employee_id, workshop_airport_iata_code, workshop_number, start_date, end_date)
 VALUES
     -- Maintenances from failed non-post-maintenance inspections 6-25 (id: 1-20),
@@ -302,6 +314,7 @@ VALUES
     (25, 6,  'GDN', 1, '2025-10-25', '2025-11-20');
 
 
+-- inspection, 20 records
 INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, validated_maintenance_id, type, date, result)
 VALUES
     -- Passed, post-maintenance - confirm maintenances 1-15 (id: 26-40)
@@ -329,6 +342,7 @@ VALUES
     ('SP-LBK', 3, 20, 'post-maintenance', '2025-11-20', 'failed');
 
 
+-- maintenance, 5 records
 INSERT INTO maintenance (initiating_inspection_id, coordinated_by_employee_id, workshop_airport_iata_code, workshop_number, start_date, end_date)
 VALUES
     -- Maintenances from failed post-maintenance inspections 41-45 (id: 21-25)
@@ -339,6 +353,7 @@ VALUES
     (45, 10, 'GDN', 1, '2025-11-20', '2025-11-25');
 
 
+-- inspection, 10 records
 INSERT INTO inspection (airplane_registration_code, performed_by_employee_id, validated_maintenance_id, type, date, result)
 VALUES
     -- Passed, post-maintenance - confirm the maintenances 21-25 triggered above (id: 46–50)
@@ -355,9 +370,10 @@ VALUES
     -- Scheduled (id: 53–55)
     ('SP-LBJ', 1, NULL, 'pre-flight',  '2026-01-09', 'scheduled'),
     ('SP-LBK', 3, NULL, 'post-flight', '2026-01-20', 'scheduled'),
-    ('SP-LBL', 5, NULL, 'routine',     '2026-01-27', 'scheduled');
+    ('SP-LBL', 3, NULL, 'routine',     '2026-01-20', 'scheduled');
 
 
+-- maintenance_inventory_usage, 26 records
 INSERT INTO maintenance_inventory_usage (maintenance_id, inventory_stock_id, quantity_used)
 VALUES
     (1, 6, 1),
