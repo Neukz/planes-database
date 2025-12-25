@@ -1,3 +1,26 @@
+-- Purpose: Show the most recent inspection result for every airplane in the fleet
+-- Business need: Provide a snapshot of the fleet's current "health" status
+SELECT
+	a.registration_code,
+	a.status,
+	i.date AS last_inspection_date,
+	i.type AS last_inspection_type,
+	i.result AS last_inspection_result
+FROM airplane a
+LEFT JOIN inspection i
+	ON a.registration_code = i.airplane_registration_code AND
+		i.date = (
+			SELECT MAX(i_sub.date)
+			FROM inspection i_sub
+			WHERE
+				i_sub.airplane_registration_code = a.registration_code AND
+				i_sub.result <> 'scheduled' AND	-- Ignore scheduled inspections
+				i_sub.date <= GETDATE()			-- Ignore future inspections
+		)
+WHERE a.status <> 'retired'	-- Ignore retired airplanes
+ORDER BY a.registration_code;
+
+
 -- Purpose: Calculate the average duration (in days) of maintenance tasks per workshop within the last year
 -- Business need: Compare workshop performance
 SELECT 
