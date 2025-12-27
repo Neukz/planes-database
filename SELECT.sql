@@ -1,3 +1,35 @@
+-- Create view to store airplane_model fields with producer.name, product.name, and product.value
+CREATE VIEW airplane_model_details AS
+SELECT
+	producer.name AS producer_name,
+	product.name AS model_name,
+	product.value,
+	am.*
+FROM airplane_model am
+JOIN product
+	ON am.product_id = product.id
+JOIN producer
+	ON product.producer_id = producer.id;
+
+GO
+
+-- Purpose: Calculate inspection failure rate per manufacturer
+-- Business need: Identify if a specific producer's planes have quality control issues
+SELECT
+	amd.producer_name,
+	amd.model_name,
+	COUNT(i.id) AS total_inspections,
+	SUM(CASE WHEN i.result = 'failed' THEN 1 ELSE 0 END) AS failed_inspections,
+	ROUND(CAST(AVG(CASE WHEN i.result = 'failed' THEN 1.0 ELSE 0.0 END) * 100 AS FLOAT), 2) AS failure_rate_pct
+FROM airplane_model_details amd
+JOIN airplane a
+	ON amd.product_id = a.airplane_model_id
+JOIN inspection i
+	ON a.registration_code = i.airplane_registration_code
+GROUP BY amd.producer_name, amd.model_name
+ORDER BY failure_rate_pct DESC;
+
+
 -- Purpose: Show the most recent inspection result for every airplane in the fleet
 -- Business need: Provide a snapshot of the fleet's current "health" status
 SELECT
