@@ -13,6 +13,23 @@ JOIN producer
 
 GO
 
+
+-- Create view to store spare_part fields with producer.name, product.name, and product.value
+CREATE VIEW spare_part_details AS
+SELECT
+	producer.name AS producer_name,
+	product.name AS spare_part_name,
+	product.value,
+	sp.*
+FROM spare_part sp
+JOIN product
+	ON sp.product_id = product.id
+JOIN producer
+	ON product.producer_id = producer.id;
+
+GO
+
+
 -- Purpose: Calculate inspection failure rate per manufacturer
 -- Business need: Identify if a specific producer's planes have quality control issues
 SELECT
@@ -28,6 +45,24 @@ JOIN inspection i
 	ON a.registration_code = i.airplane_registration_code
 GROUP BY amd.producer_name, amd.model_name
 ORDER BY failure_rate_pct DESC;
+
+
+-- Purpose: Calculate total value of spare parts consumed in maintenance tasks within the last year, per part type
+-- Business need: Identify which categories of parts are driving the highest maintenance costs
+SELECT
+	spd.type AS spare_part_type,
+	ISNULL(SUM(spd.value * miu.quantity_used), 0) AS total_cost
+FROM spare_part_details spd
+LEFT JOIN inventory_stock ist
+	ON spd.product_id = ist.spare_part_id
+LEFT JOIN maintenance_inventory_usage miu
+	ON ist.id = miu.inventory_stock_id
+LEFT JOIN maintenance m
+	ON miu.maintenance_id = m.id AND
+		m.start_date >= DATEADD(YEAR, -1, GETDATE()) AND
+		m.end_date IS NOT NULL	-- Only consider completed maintenance
+GROUP BY spd.type
+ORDER BY total_cost DESC;
 
 
 -- Purpose: Show the most recent inspection result for every airplane in the fleet
@@ -53,7 +88,7 @@ WHERE a.status <> 'retired'	-- Ignore retired airplanes
 ORDER BY a.registration_code;
 
 
--- Purpose: Calculate the average duration (in days) of maintenance tasks per workshop within the last year
+-- Purpose: Calculate the average duration (in days) of maintenance tasks within the last year, per workshop
 -- Business need: Compare workshop performance
 SELECT 
 	workshop_airport_iata_code,
