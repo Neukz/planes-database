@@ -1,6 +1,7 @@
--- Create view to store airplane_model fields with producer.name, product.name, and product.value
+-- Create view to store airplane_model fields with producer.id, producer.name, product.name, and product.value
 CREATE VIEW airplane_model_details AS
 SELECT
+	producer.id AS producer_id,
 	producer.name AS producer_name,
 	product.name AS model_name,
 	product.value,
@@ -14,9 +15,10 @@ JOIN producer
 GO
 
 
--- Create view to store spare_part fields with producer.name, product.name, and product.value
+-- Create view to store spare_part fields with producer.id, producer.name, product.name, and product.value
 CREATE VIEW spare_part_details AS
 SELECT
+	producer.id AS producer_id,
 	producer.name AS producer_name,
 	product.name AS spare_part_name,
 	product.value,
@@ -30,7 +32,7 @@ JOIN producer
 GO
 
 
--- Purpose: Calculate inspection failure rate per manufacturer
+-- Purpose: Calculate inspection failure rate, per airplane model
 -- Business need: Identify if a specific producer's planes have quality control issues
 SELECT
 	amd.producer_name,
@@ -93,6 +95,7 @@ ORDER BY a.registration_code;
 SELECT 
 	workshop_airport_iata_code,
 	workshop_number,
+	COUNT(*) AS maintenance_count,
 	AVG(DATEDIFF(DAY, start_date, end_date)) AS avg_maintenance_days
 FROM maintenance
 WHERE
@@ -112,8 +115,24 @@ SELECT
 FROM employee e
 LEFT JOIN inspection i
 	ON e.id = i.performed_by_employee_id AND
-		i.date >= '2025-11-01' AND
-		i.date <= '2025-11-30'
+		YEAR(i.date) = 2025 AND
+		MONTH(i.date) = 11
 WHERE e.role = 'Inspection Specialist'
 GROUP BY e.id, e.first_name, e.last_name, e.email
 ORDER BY inspection_count DESC;
+
+
+-- Purpose: Find the longest range airplane model, per producer
+-- Business need: Compare airplane models from different producers when planning new long-distance routes
+SELECT
+	amd.producer_name,
+	amd.model_name,
+	amd.range,
+	amd.value AS price
+FROM airplane_model_details amd
+WHERE amd.range = (
+	SELECT MAX(amd_sub.range)
+	FROM airplane_model_details amd_sub
+	WHERE amd_sub.producer_id = amd.producer_id
+)
+ORDER BY amd.range DESC;
