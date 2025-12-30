@@ -136,3 +136,24 @@ WHERE amd.range = (
 	WHERE amd_sub.producer_id = amd.producer_id
 )
 ORDER BY amd.range DESC;
+
+
+-- Purpose: List current inventory levels for mechanical spare parts located at Polish airports
+-- Business need: Assess local readiness for mechanical repairs
+SELECT
+	ist.workshop_airport_iata_code,
+	ist.workshop_number,
+	spd.producer_name,
+	spd.spare_part_name,
+	ist.quantity,
+	ist.reorder_level
+FROM inventory_stock ist
+JOIN spare_part_details spd
+	ON ist.spare_part_id = spd.product_id
+WHERE
+	spd.type = 'mechanical' AND
+	ist.workshop_airport_iata_code IN (
+		SELECT iata_code
+		FROM airport
+		WHERE country = 'Poland'
+	);
